@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-banner mb-5" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ url_for('static', filename='images/book_banner.jpg') }}');">
+    <div class="p-5 text-center">
+        <h1 class="display-4 fw-bold text-white">Discover Telugu Literature</h1>
+        <p class="fs-5 text-light">Book reading sessions for classic and contemporary Telugu books</p>
+    </div>
+</div>
+
+<section class="mb-5">
+    <h2 class="mb-4 border-bottom pb-2">Featured Books</h2>
+    <div class="row">
+        {% for book in featured_books %}
+        <div class="col-md-2 col-6 mb-4">
+            <a href="{{ url_for('book_detail', book_id=book.id) }}" class="text-decoration-none">
+                <div class="card h-100 book-card">
+                    <img src="{{ url_for('static', filename='images/' + book.cover_image) }}" class="card-img-top" alt="{{ book.title }}">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ book.title }}</h6>
+                        <small class="text-muted">{{ book.author }}</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="mb-5">
+    <h2 class="mb-4 border-bottom pb-2">Coming Soon</h2>
+    <div class="row">
+        {% for book in upcoming_books %}
+        <div class="col-md-2 col-6 mb-4">
+            <a href="{{ url_for('book_detail', book_id=book.id) }}" class="text-decoration-none">
+                <div class="card h-100 book-card">
+                    <img src="{{ url_for('static', filename='images/' + book.cover_image) }}" class="card-img-top" alt="{{ book.title }}">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ book.title }}</h6>
+                        <small class="text-muted">Releases {{ book.release_date.strftime('%b %d, %Y') }}</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
